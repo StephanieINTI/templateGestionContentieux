@@ -12,9 +12,16 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { TribunalComponent } from 'src/app/pages/tribunal/tribunal.component';
 import { AffaireComponent } from 'src/app/pages/affaire/affaire.component';
-// import { ToastrModule } from 'ngx-toastr';
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { LoginComponent } from 'src/app/pages/login/login.component';
+
+
 
 @NgModule({
   imports: [
@@ -23,7 +30,12 @@ import { AffaireComponent } from 'src/app/pages/affaire/affaire.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+     FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
   ],
   declarations: [
     DashboardComponent,
@@ -33,6 +45,8 @@ import { AffaireComponent } from 'src/app/pages/affaire/affaire.component';
     MapsComponent,
     TribunalComponent,
     AffaireComponent
+    LoginComponent
+
   ]
 })
 

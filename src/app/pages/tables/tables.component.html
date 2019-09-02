@@ -1,8 +1,223 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-  <div class="container-fluid">
-    <div class="header-body">
+<html>
+  <body>
+      <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">  
+      <div class="row text-center">
+         <div class="col-md-4">
+            <div class="btn-group">
+              <div
+                class="btn btn-primary">
+               <button mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+                >
+              
+                Previous</button>
+              </div>
+              <div
+                class="btn btn-outline-secondary">
+                <button mwlCalendarToday
+                [(viewDate)]="viewDate"
+                >
+                Today
+              </button>
+              </div>
+              <div
+                class="btn btn-primary">
+                <button mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                Next
+              </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+          </div>
+          <div class="col-md-4">
+            <div class="btn-group">
+              <div
+                class="btn btn-primary">
+                <button (click)="setView(CalendarView.Month)"
+                [class.active]="view === CalendarView.Month"
+                >
+                Month
+              </button>
+              </div>
+              <div
+                class="btn btn-primary">
+                <button (click)="setView(CalendarView.Week)"
+                [class.active]="view === CalendarView.Week"
+                >
+                Week
+              </button>
+              </div>
+              <div
+                class="btn btn-primary">
+                <button (click)="setView(CalendarView.Day)"
+                [class.active]="view === CalendarView.Day"
+              >
+                Day
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        
+         <div [ngSwitch]="view">
+          <mwl-calendar-month-view
+            *ngSwitchCase="CalendarView.Month"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            [activeDayIsOpen]="activeDayIsOpen"
+            (dayClicked)="dayClicked($event.day)"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view
+            *ngSwitchCase="CalendarView.Week"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            *ngSwitchCase="CalendarView.Day"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            (eventClicked)="handleEvent('Clicked', $event.event)"
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-day-view>
+        </div>
+        <div>
+          <li *ngFor="let event of events$ | async">
+        {{event.title}} {{event.start}}
+    </li></div>
+        <br /><br /><br />
+
+        <h3>
+          Edit events
+          <button class="btn btn-primary pull-right" (click)="addEvent()">
+            Add new
+          </button>
+          <div class="clearfix"></div>
+        </h3>
+        
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Primary color</th>
+                <th>Secondary color</th>
+                <th>Starts at</th>
+                <th>Ends at</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+              <tr *ngFor="let event of events">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="event.title"
+                    (keyup)="refresh.next()"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="color"
+                    [(ngModel)]="event.color.primary"
+                    (change)="refresh.next()"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="color"
+                    [(ngModel)]="event.color.secondary"
+                    (change)="refresh.next()"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.start"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    [convertModelValue]="true"
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.end"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    [convertModelValue]="true"
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set"
+                  />
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteEvent(event)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <ng-template #modalContent let-close="close">
+          <div class="modal-header">
+            <h5 class="modal-title">Event action occurred</h5>
+            <button type="button" class="close" (click)="close()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              Action:
+              <pre>{{ modalData?.action }}</pre>
+            </div>
+            <div>
+              Event:
+              <pre>{{ modalData?.event | json }}</pre>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">
+              OK
+            </button>
+          </div>
+        </ng-template> 
+        <br /><br /><br /> <br /><br /><br />
+  <!--<div class="container-fluid">
+    <div class="header-body">-->
       <!-- Card stats -->
-      <div class="row">
+      <!--<div class="row">
         <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
@@ -90,11 +305,11 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 <!-- Page content -->
 <div class="container-fluid mt--7">
   <!-- Table -->
-  <div class="row">
+  <!--<div class="row">
     <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
@@ -433,9 +648,77 @@
         </div>
       </div>
     </div>
+  </div>-->
+
+  <!-- Formulaire d'ajout -->
+  <form role="form" (ngSubmit)="createTache()">
+  <div class="row">
+      <div class="col">
+          <div class="card shadow">
+              <div class="card-header border-0">
+                <h3 class="mb-0">Ajouter une tache</h3>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                   <label>Date</label>
+                   <input type="date" class="form-control" placeholder="date" [(ngModel)]="tache.dateCreation" name="dateCreation">
+                   </div>
+                 </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>titre</label>
+        <input type="text"  class="form-control" placeholder="titre" [(ngModel)]="tache.titre" name="titre">
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>description</label>
+        <input type="text"  class="form-control" placeholder="description" [(ngModel)]="tache.description" name="description">
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>Statut Audience</label>
+        <input type="text"  class="form-control" placeholder="true or false" [(ngModel)]="tache.statutAudience" name="statutAudience">
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>Affaire</label>
+        <input type="number"  class="form-control" placeholder="IdAffaire" [(ngModel)]="tache.affaire" name="affaire">
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>Tribunal</label>
+        <input type="number"  class="form-control" placeholder="IdTribunal" [(ngModel)]="tache.tribunal" name="tribunal">
+        </div>
+     </div>
+     <div class="col-md-6">
+        <div class="form-group">
+        <label>Utilisateur</label>
+        <input type="number"  class="form-control" placeholder="IdUtilisateur" [(ngModel)]="tache.utilisateur" name="utilisateur">
+        </div>
+     </div>
+
+     
+    
+     <button type="submit" class="btn btn-primary mt-4">Ajouter</button>
+        <div class="clearfix"></div>
+     </div>
+     </div>
   </div>
+</form>
+  
+
+
+</div>
+</div>
+</body>
+</html>
+
   <!-- Dark table -->
-  <div class="row mt-5">
+  <!--<div class="row mt-5">
     <div class="col">
       <div class="card bg-default shadow">
         <div class="card-header bg-transparent border-0">
@@ -749,5 +1032,4 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>-->

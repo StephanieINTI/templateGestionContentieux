@@ -8,6 +8,7 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,8 +23,10 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor() { }
-
+  constructor(private appService: AppService) { }
+  authenticated(){
+    return this.appService.authenticated;
+  }
   ngOnInit() {
 
     this.datasets = [

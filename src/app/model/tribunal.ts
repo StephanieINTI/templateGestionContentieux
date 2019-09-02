@@ -1,5 +1,5 @@
 export class Tribunal {
-     IdTribunal: number;
+     idTribunal: number;
      adresse :string;
      fax: number;
      tel: number;

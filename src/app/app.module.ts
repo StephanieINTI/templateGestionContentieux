@@ -13,6 +13,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { TribunalService } from './service/tribunal.service';
+
+import { AffaireService } from './service/affaire.service';
+import { DocumentComponent } from './document/document.component';
+import { UserAdminComponent } from './pages/user-admin/user-admin.component';
+
 import { TacheService } from './service/tache.service';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -29,6 +34,7 @@ export class XhrInterceptor implements HttpInterceptor {
     return next.handle(xhr);
   }
 }
+
 
 
 @NgModule({
@@ -52,10 +58,18 @@ export class XhrInterceptor implements HttpInterceptor {
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+
+    DocumentComponent,
+    UserAdminComponent,
+  ],
+  providers: [TribunalService, AffaireService],
+  bootstrap: [AppComponent]
+
     
   ],
   providers: [AppService,TribunalService,TacheService,{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
   bootstrap: [AppComponent],
   exports: []
+
 })
 export class AppModule { }

@@ -1,8 +1,8 @@
-<!--<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+ <!-- <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">-->
-      <!-- Card stats -->
-     <!-- <div class="row">
+    <div class="header-body">
+      Card stats
+     <div class="row">
         <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
@@ -90,9 +90,9 @@
       </div>
     </div>
   </div>
-</div>-->
+</div> -->
 <!-- Page content -->
-<!--<div class="container-fluid mt--7">
+<div class="container-fluid mt--7">
   <div class="row">
     <div class="col">
       <div class="card shadow border-0">
@@ -100,7 +100,7 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>
 <html>
  
 <head>
@@ -109,28 +109,30 @@
  
 <body>
   <div class="container">
-    <h1 class="text-danger text-center">Welcome to {{ title }}!</h1>
+    <br>
+    <br>
+    <h1 class="text-danger text-center">Liste des tribunaux</h1>
     <hr />
  
     <div id="fetchbtn">
-      <button type="button" class="btn btn-outline-success" (click)="getAllEmployees();">Click me</button>
+      <button type="button" class="btn btn-outline-success" (click)="loadTribunal();">Click me</button>
     </div>
-    <div><small class="text-info">Click the button to fetch the employees from the database!</small></div>
+    <div><small class="text-info">Cliquez sur le bouton pour afficher les tribunaux</small></div>
  
-    <div *ngIf="myresponse">
+    <div>
       <table class="table table-bordered table-hover">
         <thead>
           <th>adresse</th>
           <th>fax</th>
-          <th> tel</th>
+          <th>tel</th>
           <th>region</th>
         </thead>
         <tbody>
-          <tr *ngFor="let t of myresponse">
-            <td>{{t.id}}</td>
-            <td>{{t.name}}</td>
-            <td>{{t.mobile}}</td>
-            <td>{{t.address}}</td>
+          <tr *ngFor="let t of tribunal">
+            <td>{{t.adresse}}</td>
+            <td>{{t.fax}}</td>
+            <td>{{t.tel}}</td>
+            <td>{{t.region}}</td>
           </tr>
         </tbody>
       </table>

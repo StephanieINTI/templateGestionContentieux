@@ -44,7 +44,7 @@ import { LoginComponent } from 'src/app/pages/login/login.component';
     IconsComponent,
     MapsComponent,
     TribunalComponent,
-    AffaireComponent
+    AffaireComponent,
     LoginComponent
 
   ]

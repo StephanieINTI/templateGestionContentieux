@@ -157,9 +157,7 @@ export class TablesComponent implements OnInit {
   .set(
     'dateCreation.gte',
     format(getStart(this.viewDate), 'yyyy-MM-dd')
-  )
-
-  .set('api_key', 'AIzaSyAvRiHrKRdbZNNki4yqrpmoQE');
+  );
 
    this.events$ = this.http
      .get('http://localhost:9090/gestionContentieux/tache', {params})  

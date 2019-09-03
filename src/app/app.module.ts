@@ -16,7 +16,7 @@ import { TribunalService } from './service/tribunal.service';
 
 import { AffaireService } from './service/affaire.service';
 import { DocumentComponent } from './document/document.component';
-import { UserAdminComponent } from './pages/user-admin/user-admin.component';
+
 
 import { TacheService } from './service/tache.service';
 import { FlatpickrModule } from 'angularx-flatpickr';
@@ -60,14 +60,12 @@ export class XhrInterceptor implements HttpInterceptor {
     AuthLayoutComponent,
 
     DocumentComponent,
-    UserAdminComponent,
+   
   ],
-  providers: [TribunalService, AffaireService],
-  bootstrap: [AppComponent]
+ 
 
-    
-  ],
-  providers: [AppService,TribunalService,TacheService,{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
+
+  providers: [AppService,TribunalService, AffaireService,TacheService,{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
   bootstrap: [AppComponent],
   exports: []
 

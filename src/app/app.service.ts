@@ -15,7 +15,7 @@ export class AppService {
     } :{}
     
     );
-    this.httpClient.get('http://localhost:9090/gestionContentieux/login/tache',{headers : headers}).subscribe(
+    this.httpClient.get('http://localhost:9090/gestionContentieux/login/user',{headers : headers}).subscribe(
       response => {
         if (response['username']){
           this.authenticated =true;

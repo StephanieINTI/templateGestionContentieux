@@ -20,7 +20,7 @@ import {
 } from 'date-fns';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import 'rxjs/add/operator/map';
+//import 'rxjs/add/operator/map';
 
 
 const colors: any = {
@@ -157,7 +157,8 @@ export class TablesComponent implements OnInit {
   .set(
     'dateCreation.gte',
     format(getStart(this.viewDate), 'yyyy-MM-dd')
-  );
+  )
+  .set('api_key', 'AIzaSyCT772scBuFcShyafrcCxM5SPn2JS_kAHU');
 
    this.events$ = this.http
      .get('http://localhost:9090/gestionContentieux/tache', {params})  

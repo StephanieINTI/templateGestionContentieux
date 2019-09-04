@@ -13,10 +13,8 @@ import { RegisterComponent } from '../../pages/register/register.component';
     FormsModule
     // NgbModule
   ],
-  declarations: [
-    
+  declarations: [   
     RegisterComponent,
-    
-  ]
+
 })
 export class AuthLayoutModule { }

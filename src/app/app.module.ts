@@ -64,7 +64,7 @@ export class XhrInterceptor implements HttpInterceptor {
     
    
   ],
- 
+  
 
 
   providers: [AppService,TribunalService, AffaireService, TacheService, UserAdminService, UserAvocatService,{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],

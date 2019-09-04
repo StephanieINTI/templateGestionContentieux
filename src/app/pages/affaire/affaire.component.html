@@ -35,6 +35,28 @@
               </div>
             </div>
           </form>
+
+          <div class="table-responsive" *ngIf="displayData">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Référence</th>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of affaires">
+                  <td>{{a.reference}}</td>
+                  <td>{{a.titre}}</td>
+                  <td>{{a.description}}</td>
+                  <td>{{a.statut}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
 

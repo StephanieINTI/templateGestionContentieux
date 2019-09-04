@@ -21,7 +21,7 @@ export class AffaireService {
   public deleteAffaire(id: number): Observable<any> {
     return this.httpClient.delete('http://localhost:9090/gestionContentieux/affaire/' + id);
   }
-  public updateTribunal(affaire: any): Observable<any> {
+  public updateAffaire(affaire: any): Observable<any> {
     var affaireParse = JSON.parse(affaire);
     return this.httpClient.put('http://localhost:9090/gestionContentieux/affaire/' + affaireParse.idAffaire, affaireParse);
   }

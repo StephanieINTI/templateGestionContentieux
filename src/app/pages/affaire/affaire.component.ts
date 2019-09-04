@@ -10,6 +10,7 @@ import { Affaire } from '../../model/affaire';
 export class AffaireComponent implements OnInit {
   affaires: any[];
   affaire: Affaire = new Affaire();
+  displayData: boolean;
   // filterAffaire;
   constructor(private affaireService: AffaireService) { }
 
@@ -30,7 +31,7 @@ export class AffaireComponent implements OnInit {
   }
   loadOneAffaire() {
     this.affaireService.getAffaireByTitre(this.affaire.titre).subscribe(
-      data => {this.loadAffaire(); this.affaire.titre = data;},
+      data => {this.affaire.titre = data; this.displayData = true;},
       error => {console.log(error);}
     )
   }

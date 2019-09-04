@@ -62,7 +62,7 @@ export class XhrInterceptor implements HttpInterceptor {
     DocumentComponent,
    
   ],
- 
+  
 
 
   providers: [AppService,TribunalService, AffaireService,TacheService,{provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true}],
